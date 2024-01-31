@@ -1,18 +1,12 @@
-<script setup>
-import { RouterLink, RouterView } from 'vue-router'
-</script>
-
 <template>
-  <header>
-    <div class="max-w-7xl mx-auto">
-      <nav>
-        <RouterLink to="/">Home</RouterLink>
-        <RouterLink to="/about">About</RouterLink>
-      </nav>
+  <header class="p-3 bg-black text-white">
+    <div>
+      <div class="flex items-center justify-between">
+        <!-- 좌측에 Home 링크 배치 -->
+        <router-link to="/" class="nav-link px-2 text-white">Home</router-link>
+      </div>
     </div>
   </header>
 
-  <main class="max-w-7xl mx-auto min-h-screen">
-    <RouterView/>
-  </main>
+  <router-view/>
 </template>

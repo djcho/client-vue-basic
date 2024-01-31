@@ -10,13 +10,45 @@ const router = createRouter({
       component: HomeView
     },
     {
-      path: '/about',
-      name: 'about',
+      path: '/login',
+      name: 'Login',
       // route level code-splitting
       // this generates a separate chunk (About.[hash].js) for this route
       // which is lazy-loaded when the route is visited.
-      component: () => import('../views/HomeView.vue')
-    }
+      component: () => import('../views/Login.vue')
+    },
+    {
+      path: '/register',
+      name: 'Register',
+      // route level code-splitting
+      // this generates a separate chunk (About.[hash].js) for this route
+      // which is lazy-loaded when the route is visited.
+      component: () => import('../views/Register.vue')
+    },
+    {
+      path: '/articles',
+      name: 'ArticleIndex',
+      // route level code-splitting
+      // this generates a separate chunk (About.[hash].js) for this route
+      // which is lazy-loaded when the route is visited.
+      component: () => import('../views/articles/ArticleIndex.vue')
+    },
+    {
+      path: '/articles/create',
+      name: 'ArticleCreate',
+      // route level code-splitting
+      // this generates a separate chunk (About.[hash].js) for this route
+      // which is lazy-loaded when the route is visited.
+      component: () => import('../views/articles/ArticleCreate.vue')
+    },
+    {
+      path: '/articles/:id/edit',
+      name: 'ArticleEdit',
+      // route level code-splitting
+      // this generates a separate chunk (About.[hash].js) for this route
+      // which is lazy-loaded when the route is visited.
+      component: () => import('../views/articles/ArticleEdit.vue')
+    },
   ]
 })
 
