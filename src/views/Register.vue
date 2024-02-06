@@ -62,8 +62,8 @@ export default {
 
             try {
                 console.log(inputs)
-                
-                const response = await axios.post('register', inputs);
+
+                const response = await axios.post('auth/register', inputs);
                 if (response.status !== 200) {
                     errorMessage.value = response.response.data.message || 'An error occurred';
                 } else {

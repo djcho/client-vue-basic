@@ -49,7 +49,7 @@
                 <path d="M2 10a8 8 0 018-8v8h8a8 8 0 11-16 0z"></path>
                 <path d="M12 2.252A8.014 8.014 0 0117.748 8H12V2.252z"></path>
               </svg>
-              <span class="ml-3">Overview</span>
+              <span class="ml-3">Dashboard</span>
             </a>
           </li>
           <li>
@@ -89,7 +89,7 @@
                 ></path>
               </svg>
             </button>
-            <ul id="dropdown-pages" class="hidden py-2 space-y-2">
+            <ul id="dropdown-pages" class="py-2 space-y-2">
               <li>
                 <a
                   href="#"
@@ -175,6 +175,7 @@
             </ul>
           </li>
           <li>
+            <router-link to="/articles">
             <a
               href="#"
               class="flex items-center p-2 text-base font-medium text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"
@@ -193,13 +194,14 @@
                   d="M3 5a2 2 0 012-2h1a1 1 0 010 2H5v7h2l1 2h4l1-2h2V5h-1a1 1 0 110-2h1a2 2 0 012 2v10a2 2 0 01-2 2H5a2 2 0 01-2-2V5z"
                 ></path>
               </svg>
-              <span class="flex-1 ml-3 whitespace-nowrap">Messages</span>
+              <span class="flex-1 ml-3 whitespace-nowrap">Articles</span>
               <span
                 class="inline-flex justify-center items-center w-5 h-5 text-xs font-semibold rounded-full text-primary-800 bg-primary-100 dark:bg-primary-200 dark:text-primary-800"
               >
                 4
               </span>
             </a>
+        </router-link>
           </li>
           <li>
             <button

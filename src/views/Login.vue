@@ -43,6 +43,7 @@
 import axios from 'axios';
 import { useRouter } from 'vue-router';
 import { ref } from 'vue';
+import useAuth from '@/composables/auth';
 
 export default {
     name : "Login",
@@ -51,24 +52,22 @@ export default {
         const email = ref('');
         const password = ref('');
         const errorMessage = ref('');
+        const { login, accessToken } = useAuth();
 
         const submit = async e => {
             const form = new FormData(e.target);
 
             const inputs = Object.fromEntries(form.entries());
-            console.log(inputs);
             try{
-                const {data} = await axios.post('login', inputs, {
-               withCredentials : true
-            });
-            console.log(data);
-            axios.defaults.headers.common['Authorization'] = 'Bearer ${data.token' 
-            errorMessage.value = '';
-            await router.push('/articles');
+                await login(inputs);
+                axios.defaults.headers['Authorization'] = `Bearer ${accessToken}`
+                errorMessage.value = '';
+                console.log(accessToken)
+                await router.push('/articles');
             }
             catch(error){
                 console.log(error)
-                errorMessage.value = error.response.data.message || 'An error occurred';
+                errorMessage.value = error;
             }
         }
         return {

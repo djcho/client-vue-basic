@@ -1,6 +1,10 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
+import tokenStore from '../store/tokenStore'
+import axios from 'axios';
+import useAuth from '@/composables/auth';
 
+const { refreshToken, accessToken, errors } = useAuth();
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
@@ -23,6 +27,12 @@ const router = createRouter({
           path: '/articles/:id/edit',
           name: 'ArticleEdit',
           component: () => import('../views/articles/ArticleEdit.vue')
+        },
+        {
+          path: '/articles/:id',
+          name: 'ArticleShow',
+          component: () => import('../views/articles/ArticleShow.vue'),
+          props: true,
         }
       ]
     },
@@ -44,5 +54,25 @@ const router = createRouter({
     }
   ]
 })
+
+router.beforeEach(async (to, from, next) => {
+  if(to.name === 'Login' ||
+  to.name === 'Register'){
+    return next();
+  }
+  
+  // if(!tokenStore.getters.isAuthenticated){
+  //   try{
+  //       await refreshToken();
+  //       if(errors){
+  //         return next({name : "Login"});
+  //       }
+  //   }catch(error){
+  //     return next({name : "Login"});
+  //   }
+  // }
+  
+  return next();
+});
 
 export default router

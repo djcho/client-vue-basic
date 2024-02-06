@@ -2,22 +2,26 @@ import {ref} from "vue";
 import axios from "axios";
 import {useRouter} from "vue-router";
 
-axios.defaults.baseURL = "http://localhost:8000/api/";
 
-export default function createArticle(){
+export default function useArticle(){
     const articles = ref([]);
     const article = ref([]);
     const errors = ref({});
     const router = useRouter();
 
     const getArticles = async () => {
-        const response = await axios.get("articles");
-        articles.value = response .data.data;
+        try{            
+            const response = await axios.get("articles");            
+            articles.value = response.data.article.data;
+        }catch(error){
+            console.error(error);
+        }
     };
 
-    const getArticle = async () => {
-        const response = await axios.get("article" + id);
-        article.value = response.data.data;
+    const getArticle = async (id) => {
+        const response = await axios.get("articles/" + id);
+        article.value = response.data.article;
+        
     };
     
     const storeArticle = async(data) => {

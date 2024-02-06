@@ -1,77 +1,45 @@
 <script setup>
-    import createArticle from "../../composables/articles";
+    import useArticle from "@/composables/articles";
     import {onMounted} from "vue";
+    import { RouterLink, useRouter } from 'vue-router';
 
-    const {articles, getArticles} = createArticle();
-
+    const {articles, getArticles} = useArticle();
     onMounted(() => getArticles());
-
+    
+    const router = useRouter();
+    const goToArticleShow = (articleId) => {
+    router.push({ name: 'ArticleShow', params: { id: articleId } });
+};
 </script>
 <template>
-    <div class="mt-12">
-        <div class="relative overflow-x-auto">
+
+    <div class="m-1">
+        <div class="relative overflow-x-auto m-20">
             <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
                 <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                     <tr>
-                        <th scope="col" class="px-6 py-3">
-                            Product name
-                        </th>
-                        <th scope="col" class="px-6 py-3">
-                            Color
-                        </th>
-                        <th scope="col" class="px-6 py-3">
-                            Category
-                        </th>
-                        <th scope="col" class="px-6 py-3">
-                            Price
-                        </th>
+                        <th scope="col" class="px-6 py-3">번호</th>
+                        <th scope="col" class="px-6 py-3">제목</th>
+                        <th scope="col" class="px-6 py-3">내용</th>
+                        <th scope="col" class="px-6 py-3">작성 일자</th>
+                        <th scope="col" class="px-6 py-3">수정 일자</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-                        <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                            Apple MacBook Pro 17"
-                        </th>
-                        <td class="px-6 py-4">
-                            Silver
-                        </td>
-                        <td class="px-6 py-4">
-                            Laptop
-                        </td>
-                        <td class="px-6 py-4">
-                            $2999
-                        </td>
-                    </tr>
-                    <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-                        <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                            Microsoft Surface Pro
-                        </th>
-                        <td class="px-6 py-4">
-                            White
-                        </td>
-                        <td class="px-6 py-4">
-                            Laptop PC
-                        </td>
-                        <td class="px-6 py-4">
-                            $1999
-                        </td>
-                    </tr>
-                    <tr class="bg-white dark:bg-gray-800">
-                        <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                            Magic Mouse 2
-                        </th>
-                        <td class="px-6 py-4">
-                            Black
-                        </td>
-                        <td class="px-6 py-4">
-                            Accessories
-                        </td>
-                        <td class="px-6 py-4">
-                            $99
-                        </td>
+                    <tr v-for="article in articles" :key="article.id" class="bg-white border-b dark:bg-gray-800 dark:border-gray-700" @click="goToArticleShow(article.id)">
+                       <td class="py-4 px-6">{{ article.id }}</td>
+                       <td class="py-4 px-6">{{ article.title }}</td>
+                       <td class="py-4 px-6">{{ article.content }}</td>
+                       <td class="py-4 px-6">{{ article.created_at }}</td>
+                       <td class="py-4 px-6">{{ article.updated_at }}</td>
                     </tr>
                 </tbody>
             </table>
+            <div class="mr-16">
+                <div class="flex justify-end m-2 p-2">
+                    <RouterLink :to="{name : 'ArticleCreate'}" class="px-4 py-2 bg-indigo-500 hover:bg-indigo-700 text-white rounded">작성</RouterLink>
+                </div>
+           </div>
         </div>
     </div>
 </template>
